@@ -1,0 +1,28 @@
+all_counties_data = clean_rows + [machakos_clean]
+rainfall_arr = np.array(all_counties_data)
+
+print(f"NumPy Array Shape : {rainfall_arr.shape}")
+print(f"NumPy Array Data Type : {rainfall_arr.dtype}")
+# Vectorized operations without loops
+annual_totals = np.sum(rainfall_arr, axis=1)
+monthly_averages = np.mean(rainfall_arr, axis=0)
+
+print("Annual Total Rainfall per County (mm):")
+for county, total in zip(counties, annual_totals):
+    print(f"  {county:<10}: {total} mm")
+
+print("\nAverage Rainfall per Month Across All Counties (mm):")
+for month, avg in zip(months, monthly_averages):
+    print(f"  {month}: {avg:.1f} mm")
+  wettest_indices = np.argmax(rainfall_arr, axis=1)
+wettest_months = [months[idx] for idx in wettest_indices]
+
+print("Wettest Month per County:")
+for county, month_name in zip(counties, wettest_months):
+    print(f"  {county:<10}: {month_name}")
+  dry_mask = rainfall_arr < 50
+dry_month_counts = np.sum(dry_mask, axis=1)
+
+print("Number of Dry Months (< 50 mm) per County:")
+for county, count in zip(counties, dry_month_counts):
+    print(f"  {county:<10}: {count} month(s)")
