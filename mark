@@ -1,0 +1,12 @@
+## Task 7: CSV Summary Generation
+### Approach
+We compile the metrics into `rainfall_summary.csv` using Python's built-in `csv` module with the required schema.
+## Planting Advisory & Data Quality Notes
+
+### Planting Advisory
+Kisumu and Nairobi demonstrate high annual rainfall totals (1,276 mm and 989 mm respectively), making them suitable for long-season crops when planted within their primary March–April and April–May rain windows. Conversely, Nakuru and Machakos experience severe dry spells with 6 and 5 dry months below 50 mm, requiring farmers to prioritize short-season, drought-tolerant crop varieties aligned strictly with their concentrated April–May planting windows. Coastal Mombasa exhibits a delayed precipitation surge, where the May–June window yields 350 mm of combined rainfall and represents the safest planting period. NGO SMS advisories should instruct Nakuru and Machakos farmers to implement rainwater harvesting structures prior to April to optimize limited precipitation.
+
+### Data Quality Notes
+- **Machakos Imputation:** Data for April and September in Machakos arrived as missing/invalid strings (`"N/A"` and `""`) and were imputed using the rounded mean of valid station figures (75 mm).
+- **Risk Assessment:** Imputing April—a historically high-rainfall month across East Africa—with an overall annual mean of 75 mm likely underestimates Machakos's true April rain, potentially biasing the calculated planting window intensity.
+- **Recommendation:** Field staff should verify Machakos station records manually prior to broadcasting critical agricultural advice.
