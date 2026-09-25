@@ -1,0 +1,51 @@
+import numpy as np
+import csv
+
+# Dataset definition
+counties = ["Nairobi", "Nakuru", "Kisumu", "Mombasa", "Machakos"]
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+clean_rows = [
+    [64, 56, 92, 219, 176, 35, 18, 24, 31, 61, 165, 104],   # Nairobi
+    [35, 42, 70, 145, 120, 78, 96, 105, 72, 55, 60, 38],    # Nakuru
+    [58, 90, 150, 240, 180, 95, 70, 85, 90, 88, 130, 95],   # Kisumu
+    [30, 15, 55, 150, 240, 110, 90, 65, 60, 90, 100, 70],   # Mombasa
+]
+
+machakos_raw = ["48", "35", "88", "N/A", "140", " 20 ",
+                "9", "12", "", "45", "182", "96"]
+def clean_machakos_data(raw_list, month_names):
+    """Cleans raw string data for Machakos, converting valid entries to ints
+
+    and imputing missing or invalid entries with the rounded average of valid data.
+    """
+    valid_values = []
+    invalid_indices = []
+
+    for idx, val in enumerate(raw_list):
+        try:
+            cleaned_val = int(val.strip())
+            valid_values.append(cleaned_val)
+        except ValueError:
+            invalid_indices.append(idx)
+
+    # Calculate rounded average of valid figures
+    avg_imputed = round(sum(valid_values) / len(valid_values))
+
+    cleaned_row = []
+    imputed_months = []
+
+    for idx, val in enumerate(raw_list):
+        try:
+            cleaned_row.append(int(val.strip()))
+        except ValueError:
+            cleaned_row.append(avg_imputed)
+            imputed_months.append(month_names[idx])
+
+    print("Imputed Months for Machakos:")
+    for month in imputed_months:
+        print(f"  - {month} (Imputed Value: {avg_imputed} mm)")
+
+    return cleaned_row
+
+machakos_clean = clean_machakos_data(machakos_raw, months)
